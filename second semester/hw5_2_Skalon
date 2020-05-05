@@ -1,0 +1,21 @@
+import glob
+from collections import Counter
+
+files, = glob_wildcards("input/{file,[^.]+}")
+
+rule all:
+    input: expand("output/{file}", file=files)
+
+rule python:
+    input: "input/{file}"
+    output: "output/{file}"
+    run:
+        with open(str(input[0]), 'r') as in_file:
+            with open(str(output[0]), 'w') as out:
+                a = sorted(in_file.readline().strip().lower())
+                counts=Counter(a)
+                for key, value in counts.items():
+                    out.write("{}: {}\n".format(key, value))
+
+
+
