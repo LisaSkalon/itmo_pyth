@@ -1,0 +1,39 @@
+snakemake -s example_03.4.smk --cores 1
+
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job counts:
+        count   jobs
+        1       align
+        1       all
+        2
+
+[Mon May 11 18:49:33 2020]
+rule align:
+    input: reads/A.fq.gz, reads/B.fq.gz
+    output: bams/cond1.bam
+    jobid: 1
+    wildcards: sample=cond1
+
+Job counts:
+        count   jobs
+        1       align
+        1
+tool --input reads/B.fq.gz reads/A.fq.gz reads/A.fq.gzgb
+Touching output file bams/cond1.bam.
+[Mon May 11 18:49:33 2020]
+Finished job 1.
+1 of 2 steps (50%) done
+
+[Mon May 11 18:49:33 2020]
+localrule all:
+    input: bams/cond1.bam
+    jobid: 0
+
+[Mon May 11 18:49:33 2020]
+Finished job 0.
+2 of 2 steps (100%) done
+
+
